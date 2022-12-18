@@ -90,6 +90,35 @@ class DrinkDetails extends DrinkDetailsEntity {
         strMeasure6: json['strMeasure6'],
       );
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['idDrink'] = this.idDrink;
+    data['strDrink'] = this.strDrink;
+
+    data['strCategory'] = this.strCategory;
+
+    data['strAlcoholic'] = this.strAlcoholic;
+    data['strGlass'] = this.strGlass;
+    data['strInstructions'] = this.strInstructions;
+
+    data['strDrinkThumb'] = this.strDrinkThumb;
+    data['strIngredient1'] = this.strIngredient1;
+    data['strIngredient2'] = this.strIngredient2;
+    data['strIngredient3'] = this.strIngredient3;
+    data['strIngredient4'] = this.strIngredient4;
+    data['strIngredient5'] = this.strIngredient5;
+    data['strIngredient6'] = this.strIngredient6;
+
+    data['strMeasure1'] = this.strMeasure1;
+    data['strMeasure2'] = this.strMeasure2;
+    data['strMeasure3'] = this.strMeasure3;
+    data['strMeasure4'] = this.strMeasure4;
+    data['strMeasure5'] = this.strMeasure5;
+    data['strMeasure6'] = this.strMeasure6;
+
+    return data;
+  }
+
   DrinkDetailsEntity convertToEntity() {
     return DrinkDetailsEntity(
       idDrink: idDrink,
