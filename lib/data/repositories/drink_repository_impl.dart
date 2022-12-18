@@ -14,10 +14,15 @@ class DrinksRepositoryImpl implements DrinkRepository {
 
   @override
   Future<DrinkDetailsEntity> getDrinkById(String? id) async {
-    DrinkDetails drinkModel;
+    DrinksResponseModel responseModel;
+    DrinkDetails detailsModel;
+
     try {
-      drinkModel = await dataSource.getDrinksById(id);
-      return drinkModel.convertToEntity();
+      detailsModel = await dataSource.getDrinksById(id);
+      // detailsModel = DrinkDetails.fromJson(responseModel.toJson());
+
+      DrinkDetailsEntity ent = detailsModel.convertToEntity();
+      return ent;
     } catch (e) {
       throw Exception();
     }
