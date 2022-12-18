@@ -10,6 +10,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loaderStateProvider = StateProvider<bool>((ref) => false);
 final drinksListProvider = StateProvider<List<DrinkDetailsEntity>>((ref) => []);
+final ordinaryListProvider =
+    StateProvider<List<DrinkDetailsEntity>>((ref) => []);
 
 final OrdinaryDrinksControllerProvider =
     Provider.autoDispose<OrdinaryDrinksController>(
@@ -53,6 +55,13 @@ class OrdinaryDrinksController {
 
       for (DrinkEntity drink in responseEntity!.drinks) {
         DrinkDetailsEntity detail = await getDrinkById(drink.idDrink);
+        ordinaryDrinksList.add(detail);
+      }
+
+      ref.read(ordinaryListProvider.notifier).state = ordinaryDrinksList;
+/* 
+      for (DrinkEntity drink in responseEntity!.drinks) {
+        DrinkDetailsEntity detail = await getDrinkById(drink.idDrink);
         ordinaryDrinksDetailList.add(detail);
       }
       List<DrinkDetailsEntity> oldList = [
@@ -61,7 +70,7 @@ class OrdinaryDrinksController {
 
       ref.read(drinksListProvider.notifier).state = oldList
         ..addAll(ordinaryDrinksDetailList);
-      ref.read(loaderStateProvider.notifier).state = false;
+      ref.read(loaderStateProvider.notifier).state = false; */
       return ordinaryDrinksList;
     } catch (e) {
       ref.read(loaderStateProvider.notifier).state = false;
