@@ -26,7 +26,8 @@ class RemoteDataSource {
   }
 
   Future<DetailsResponseModel> getDrinksById(String? id) async {
-    Uri queryString = Uri.parse('${ApiConstants.baseIdUrl}$id');
+    Uri queryString =
+        Uri.parse('${ApiConstants.baseUrl + ApiConstants.idEndpoint}$id');
     try {
       http.Response response = await client.get(
         queryString,
