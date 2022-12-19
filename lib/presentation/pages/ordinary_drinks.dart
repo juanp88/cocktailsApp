@@ -9,8 +9,7 @@ import '../controllers/ordinary_controller.dart';
 final drinkListFutureProvider =
     FutureProvider.autoDispose<List<DrinkEntity>>((ref) async {
   final listControllerProvider = ref.watch(ordinaryDrinksControllerProvider);
-  return listControllerProvider
-      .getOrdinaryDrinks(ApiConstants.ordinaryEndpoint);
+  return listControllerProvider.getDrinks(ApiConstants.ordinaryEndpoint);
 });
 
 class OrdinaryPage extends ConsumerStatefulWidget {
@@ -28,7 +27,6 @@ class _OrdinaryPageState extends ConsumerState<OrdinaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<DrinkEntity> drinkList = ref.watch(drinksListProvider);
     final drinkListRef = ref.watch(drinkListFutureProvider);
     return Scaffold(
         appBar: AppBar(
@@ -42,7 +40,7 @@ class _OrdinaryPageState extends ConsumerState<OrdinaryPage> {
           child: drinkListRef.when(data: (data) {
             return Column(
               children: [
-                Expanded(child: GridViewList(drinkList)),
+                Expanded(child: GridViewList(data)),
               ],
             );
           }, error: (error, _) {
