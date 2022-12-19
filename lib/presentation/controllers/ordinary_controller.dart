@@ -48,7 +48,7 @@ class OrdinaryDrinksController {
 
   DrinkResponseEntity? responseEntity;
 
-  Future<List<DrinkEntity>> getOrdinaryDrinks(String endpoint) async {
+  Future<List<DrinkEntity>> getDrinks(String endpoint) async {
     List<DrinkEntity> drinkList = [];
 
     if (drinkList.isEmpty) {
