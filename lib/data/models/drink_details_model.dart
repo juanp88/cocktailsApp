@@ -119,28 +119,28 @@ class DrinkDetails extends DrinkDetailsEntity {
     return data;
   }
 
-  DrinkDetailsEntity convertToEntity() {
+  DrinkDetailsEntity convertToEntity(DrinkDetails e) {
     return DrinkDetailsEntity(
-      idDrink: idDrink,
-      strDrink: strDrink,
-      strCategory: strCategory,
-      strIba: strIba,
-      strAlcoholic: strAlcoholic,
-      strGlass: strGlass,
-      strInstructions: strInstructions,
-      strDrinkThumb: strDrinkThumb,
-      strIngredient1: strIngredient1,
-      strIngredient2: strIngredient2,
-      strIngredient3: strIngredient3,
-      strIngredient4: strIngredient4,
-      strIngredient5: strIngredient5,
-      strIngredient6: strIngredient6,
-      strMeasure1: strMeasure1,
-      strMeasure2: strMeasure2,
-      strMeasure3: strMeasure3,
-      strMeasure4: strMeasure4,
-      strMeasure5: strMeasure5,
-      strMeasure6: strMeasure6,
+      idDrink: e.idDrink,
+      strDrink: e.strDrink,
+      strCategory: e.strCategory,
+      strIba: e.strIba,
+      strAlcoholic: e.strAlcoholic,
+      strGlass: e.strGlass,
+      strInstructions: e.strInstructions,
+      strDrinkThumb: e.strDrinkThumb,
+      strIngredient1: e.strIngredient1,
+      strIngredient2: e.strIngredient2,
+      strIngredient3: e.strIngredient3,
+      strIngredient4: e.strIngredient4,
+      strIngredient5: e.strIngredient5,
+      strIngredient6: e.strIngredient6,
+      strMeasure1: e.strMeasure1,
+      strMeasure2: e.strMeasure2,
+      strMeasure3: e.strMeasure3,
+      strMeasure4: e.strMeasure4,
+      strMeasure5: e.strMeasure5,
+      strMeasure6: e.strMeasure6,
     );
   }
 }
