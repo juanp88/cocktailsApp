@@ -8,12 +8,16 @@ import 'package:cocktails_app/domain/usecases/get_drink_by_id.dart'
 import 'package:cocktails_app/presentation/injector.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entities/details_response_entity.dart';
+
 final loaderStateProvider = StateProvider<bool>((ref) => false);
-final drinksListProvider = StateProvider<List<DrinkDetailsEntity>>((ref) => []);
+final drinksListProvider = StateProvider<List<DrinkEntity>>((ref) => []);
 final ordinaryListProvider =
     StateProvider<List<DrinkDetailsEntity>>((ref) => []);
+final ordinaryDetailsList =
+    StateProvider<List<DrinkDetailsEntity>>((ref) => []);
 
-final OrdinaryDrinksControllerProvider =
+final ordinaryDrinksControllerProvider =
     Provider.autoDispose<OrdinaryDrinksController>(
         (ref) => OrdinaryDrinksController(
               ref,
@@ -44,41 +48,37 @@ class OrdinaryDrinksController {
 
   DrinkResponseEntity? responseEntity;
 
-  Future<List<DrinkDetailsEntity>> getOrdinaryDrinks(String endpoint) async {
-    ref.read(loaderStateProvider.notifier).state = true;
+  Future<List<DrinkEntity>> getOrdinaryDrinks(String endpoint) async {
+    List<DrinkEntity> drinkList = [];
 
-    List<DrinkDetailsEntity> ordinaryDrinksList = [];
+    if (drinkList.isEmpty) {
+      try {
+        responseEntity =
+            await getCocktailsUsecase.execute(get_cocktails.Params(endpoint));
 
-    try {
-      responseEntity =
-          await getCocktailsUsecase.execute(get_cocktails.Params(endpoint));
+        for (DrinkEntity drink in responseEntity!.drinks) {
+          drinkList.add(drink);
+        }
 
-      for (DrinkEntity drink in responseEntity!.drinks) {
-        DrinkDetailsEntity detail = await getDrinkById(drink.idDrink);
-        ordinaryDrinksList.add(detail);
+        ref.read(drinksListProvider.notifier).state = [
+          ...ref.read(drinksListProvider.notifier).state
+        ]..addAll(drinkList);
+        return drinkList;
+      } catch (e) {
+        ref.read(loaderStateProvider.notifier).state = false;
+        rethrow;
       }
-
-      ref.read(ordinaryListProvider.notifier).state = ordinaryDrinksList;
-/* 
-      for (DrinkEntity drink in responseEntity!.drinks) {
-        DrinkDetailsEntity detail = await getDrinkById(drink.idDrink);
-        ordinaryDrinksDetailList.add(detail);
-      }
-      List<DrinkDetailsEntity> oldList = [
-        ...ref.read(drinksListProvider.notifier).state
-      ];
-
-      ref.read(drinksListProvider.notifier).state = oldList
-        ..addAll(ordinaryDrinksDetailList);
-      ref.read(loaderStateProvider.notifier).state = false; */
-      return ordinaryDrinksList;
-    } catch (e) {
-      ref.read(loaderStateProvider.notifier).state = false;
-      rethrow;
+    } else {
+      return drinkList;
     }
   }
 
   Future<DrinkDetailsEntity> getDrinkById(String id) async {
-    return getDrinkByIdUsecase.execute(get_drink_by_id.Params(id: id));
+    DetailsResponseEntity detailResponse =
+        await getDrinkByIdUsecase.execute(get_drink_by_id.Params(id: id));
+    ref.read(ordinaryDetailsList.notifier).state = [
+      ...ref.read(ordinaryDetailsList.notifier).state
+    ]..add(detailResponse.drinks[0]);
+    return detailResponse.drinks[0];
   }
 }
