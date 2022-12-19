@@ -1,3 +1,4 @@
+import 'package:cocktails_app/presentation/pages/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -45,7 +46,31 @@ class _SearchBarState extends ConsumerState<SearchBar> {
           hintText: "What drink are you looking for? ",
         ),
         onSubmitted: (value) {
-          if (value.isNotEmpty) {}
+          if (value.isNotEmpty) {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return ScaleTransition(
+                    alignment: Alignment.center,
+                    scale: Tween<double>(begin: 0.1, end: 1).animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeOutQuart,
+                      ),
+                    ),
+                    child: child,
+                  );
+                },
+                transitionDuration: const Duration(milliseconds: 500),
+                pageBuilder: (BuildContext context, Animation<double> animation,
+                    Animation<double> secondaryAnimation) {
+                  return SearchResultPage(value);
+                },
+              ),
+            );
+          }
         },
       ),
     );
