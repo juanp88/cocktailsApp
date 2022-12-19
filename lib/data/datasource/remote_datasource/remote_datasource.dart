@@ -1,4 +1,5 @@
 import 'package:cocktails_app/config/api_constants.dart';
+import 'package:cocktails_app/data/models/details_response_model.dart';
 import 'package:cocktails_app/data/models/drink_details_model.dart';
 import 'package:cocktails_app/data/models/drinks_response_model.dart';
 
@@ -24,7 +25,7 @@ class RemoteDataSource {
     throw Exception();
   }
 
-  Future<DrinkDetails> getDrinksById(String? id) async {
+  Future<DetailsResponseModel> getDrinksById(String? id) async {
     Uri queryString = Uri.parse('${ApiConstants.baseIdUrl}$id');
     try {
       http.Response response = await client.get(
@@ -34,8 +35,9 @@ class RemoteDataSource {
         },
       );
       if (response.statusCode == 200) {
-        DrinkDetails responseModel =
-            DrinkDetails.fromJson(json.decode(response.body));
+        DetailsResponseModel responseModel =
+            DetailsResponseModel.fromJson(json.decode(response.body));
+
         return responseModel;
       }
     } catch (e) {
