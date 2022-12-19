@@ -15,6 +15,7 @@ class DrinksApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Drinks App',
       initialRoute: '/home',
       routes: generateRoutes(context),
