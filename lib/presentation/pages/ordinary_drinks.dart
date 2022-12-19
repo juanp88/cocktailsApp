@@ -3,8 +3,15 @@ import 'package:cocktails_app/presentation/widgets/grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/drink_detail_entity.dart';
+import '../../domain/entities/drink_entity.dart';
 import '../controllers/ordinary_controller.dart';
+
+final drinkListFutureProvider =
+    FutureProvider.autoDispose<List<DrinkEntity>>((ref) async {
+  final listControllerProvider = ref.watch(ordinaryDrinksControllerProvider);
+  return listControllerProvider
+      .getOrdinaryDrinks(ApiConstants.ordinaryEndpoint);
+});
 
 class OrdinaryPage extends ConsumerStatefulWidget {
   const OrdinaryPage({super.key});
@@ -14,32 +21,37 @@ class OrdinaryPage extends ConsumerStatefulWidget {
 }
 
 class _OrdinaryPageState extends ConsumerState<OrdinaryPage> {
-  Future<void> _getData() async {
-    await ref
-        .watch(OrdinaryDrinksControllerProvider)
-        .getOrdinaryDrinks(ApiConstants.ordinaryEndpoint);
-  }
-
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      this._getData();
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var list = ref.watch(drinksListProvider);
+    List<DrinkEntity> drinkList = ref.watch(drinksListProvider);
+    final drinkListRef = ref.watch(drinkListFutureProvider);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Ordinary drinks'),
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: Icon(Icons.arrow_back_ios),
+        appBar: AppBar(
+          title: Text('Ordinary drinks'),
+          leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios),
+          ),
         ),
-      ),
-      // body: GridViewList(),
-    );
+        body: Center(
+          child: drinkListRef.when(data: (data) {
+            return Column(
+              children: [
+                Expanded(child: GridViewList(drinkList)),
+              ],
+            );
+          }, error: (error, _) {
+            return Center(
+              child: Text('Error'),
+            );
+          }, loading: () {
+            return const CircularProgressIndicator();
+          }),
+        ));
   }
 }
