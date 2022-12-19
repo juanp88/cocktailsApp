@@ -1,3 +1,4 @@
+import 'package:cocktails_app/config/app_constants.dart';
 import 'package:cocktails_app/presentation/widgets/category_widget.dart';
 import 'package:cocktails_app/presentation/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _HomeState extends ConsumerState<Home> {
       appBar: AppBar(
         title: Text('Drinks APP'),
       ),
+      backgroundColor: primary,
       body: Column(
         children: [
           Expanded(
@@ -28,6 +30,13 @@ class _HomeState extends ConsumerState<Home> {
               ],
             ),
           ),
+          Expanded(
+              child: Center(
+            child: Text(
+              'Choose your type',
+              style: titleWhite,
+            ),
+          )),
           Expanded(
             flex: 3,
             child: Row(
