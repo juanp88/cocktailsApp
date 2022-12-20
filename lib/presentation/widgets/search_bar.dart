@@ -21,6 +21,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: Key('search-bar-container'),
       width: 350,
       margin: const EdgeInsets.only(top: 25),
       decoration: BoxDecoration(
@@ -28,6 +29,7 @@ class _SearchBarState extends ConsumerState<SearchBar> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextField(
+        key: Key('search-bar-textfield'),
         style: const TextStyle(color: Colors.black),
         maxLines: 1,
         controller: _textController,

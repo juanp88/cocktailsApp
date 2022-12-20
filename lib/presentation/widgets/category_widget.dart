@@ -9,6 +9,7 @@ class CategoryWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
+      key: Key(categoryName + '-button-key'),
       onTap: () => Navigator.pushNamed(context, routeName),
       child: Container(
         height: 80,

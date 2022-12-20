@@ -17,6 +17,7 @@ class GridViewList extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: GridView.builder(
+          key: Key('Gridview-drinks'),
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: 200,
               childAspectRatio: 3 / 3,
@@ -26,6 +27,7 @@ class GridViewList extends StatelessWidget {
           itemBuilder: (BuildContext ctx, index) {
             DrinkEntity drink = drinksList[index];
             return GestureDetector(
+              key: Key('Drink-$index'),
               onTap: () {
                 Navigator.push(
                     context,
