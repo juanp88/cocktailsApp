@@ -22,30 +22,40 @@ class _SearchBarState extends ConsumerState<SearchBar> {
   Widget build(BuildContext context) {
     return Container(
       key: Key('search-bar-container'),
-      width: 350,
-      margin: const EdgeInsets.only(top: 25),
+      constraints: BoxConstraints(maxWidth: 350),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
+        color: Colors.white.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: TextField(
         key: Key('search-bar-textfield'),
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.white, fontSize: 16),
         maxLines: 1,
         controller: _textController,
         decoration: InputDecoration(
-          hintStyle: TextStyle(color: Colors.grey[600]),
+          hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.6)),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
-          icon: const Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: Icon(
-              Icons.search,
-              color: Colors.black,
-            ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          prefixIcon: Icon(
+            Icons.search,
+            color: Colors.white.withValues(alpha: 0.7),
+            size: 24,
           ),
-          hintText: "What drink are you looking for? ",
+          hintText: "Search for drinks...",
         ),
         onSubmitted: (value) {
           if (value.isNotEmpty) {
