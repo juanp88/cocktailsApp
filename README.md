@@ -2,6 +2,8 @@
 
 A modern, beautifully designed Flutter application for discovering and exploring cocktail recipes. Built with clean architecture principles and featuring a stunning UI with smooth animations.
 
+<img width="1080" height="2400" alt="Image" src="https://github.com/user-attachments/assets/2b64fb17-8260-470a-875a-b704d5d7269f" />
+
 ## ✨ Features
 
 ### 🏠 **Modern Home Screen**
