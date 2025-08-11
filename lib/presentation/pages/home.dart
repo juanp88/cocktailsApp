@@ -1,5 +1,6 @@
 import 'package:cocktails_app/config/app_constants.dart';
 import 'package:cocktails_app/presentation/widgets/search_bar.dart' as custom;
+import 'package:cocktails_app/presentation/widgets/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -110,22 +111,22 @@ class _HomeState extends ConsumerState<Home> {
                         child: Row(
                           children: [
                             Expanded(
-                              child: _buildCategoryCard(
-                                'Ordinary Drinks',
-                                '/ordinary',
-                                Icons.wine_bar,
-                                Colors.orange,
-                                Colors.deepOrange,
+                              child: CategoryCard(
+                                title: 'Ordinary Drinks',
+                                route: '/ordinary',
+                                icon: Icons.wine_bar,
+                                startColor: Colors.orange,
+                                endColor: Colors.deepOrange,
                               ),
                             ),
                             const SizedBox(width: 16),
                             Expanded(
-                              child: _buildCategoryCard(
-                                'Cocktails',
-                                '/cocktails',
-                                Icons.local_bar,
-                                Colors.pink,
-                                Colors.purple,
+                              child: CategoryCard(
+                                title: 'Cocktails',
+                                route: '/cocktails',
+                                icon: Icons.local_bar,
+                                startColor: Colors.pink,
+                                endColor: Colors.purple,
                               ),
                             ),
                           ],
@@ -138,66 +139,6 @@ class _HomeState extends ConsumerState<Home> {
 
               // Bottom spacing
               const SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryCard(String title, String route, IconData icon,
-      Color startColor, Color endColor) {
-    return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, route),
-      child: Container(
-        height: 180,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [startColor, endColor],
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: startColor.withValues(alpha: 0.3),
-              blurRadius: 15,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  icon,
-                  color: Colors.white,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Flexible(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    height: 1.2,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
